@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,34 +28,36 @@ class LoginPage extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Image.asset(
-                        'gambar/notes.png',
-                        height: 200,
-                        fit: BoxFit.contain,
-                      ),
-                      SizedBox(height: 15),
                       Text(
-                        'Log In',
+                        'Register',
                         style: TextStyle(
-                          fontSize: 32,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 181, 122, 205),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      SizedBox(height: 6),
                       Text(
-                        'Welcome to Notes App',
-                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                        'Create a new account and get started!',
+                        style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                       ),
 
-                      Text(
-                        'Manage your notes easily and securely',
-                        style: TextStyle(fontSize: 14, color: Colors.grey[500]),
-                      ),
+                      SizedBox(height: 40),
 
-                      SizedBox(height: 24),
                       TextField(
-                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.person_outline),
+                          labelText: 'Username',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                        ),
+                      ),
+                      SizedBox(height: 20),
+
+                      TextField(
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email_outlined),
                           labelText: 'Email',
@@ -80,44 +82,37 @@ class LoginPage extends StatelessWidget {
                           fillColor: Colors.grey[100],
                         ),
                       ),
+                      SizedBox(height: 20),
+
+                      TextField(
+                        obscureText: true,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.lock_outline),
+                          labelText: 'Confirm Password',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[100],
+                        ),
+                      ),
                       SizedBox(height: 32),
 
                       SizedBox(
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {}, // BELUM ADA LOGIKA
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:Color.fromARGB(255, 181, 122, 205),
+                            backgroundColor: Color.fromARGB(255, 181, 122, 205),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
                           child: Text(
-                            'Sign In',
+                            'Sign Up',
                             style: TextStyle(fontSize: 18, color: Colors.white),
                           ),
-                        ),
-                      ),
-                      SizedBox(height: 24),
-
-                      TextButton(
-                        onPressed: () {},
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Don’t have an account? ",
-                              style: TextStyle(color: Color(0xFF9B59B6)),
-                            ),
-                            Text(
-                              "Register here",
-                              style: TextStyle(
-                                color: Color(0xFF9B59B6),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],
