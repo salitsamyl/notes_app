@@ -55,7 +55,8 @@ class _AddNotePageState extends State<AddNotePage> {
     _titleController.clear();
     _contentController.clear();
 
-    _showAlert('Berhasil', 'Note berhasil ditambahkan');
+    Navigator.pop(context, true);
+
   }
 
   @override
