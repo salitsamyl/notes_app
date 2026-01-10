@@ -11,15 +11,42 @@ class AddNotePage extends StatefulWidget {
 }
 
 class _AddNotePageState extends State<AddNotePage> {
-final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
+  // ALERT DIALOG
+  void _showAlert(String title, String message) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(title),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // SIMPAN NOTE
   void _saveNote() async {
+    final title = _titleController.text.trim();
+    final content = _contentController.text.trim();
+
+    // VALIDASI
+    if (title.isEmpty || content.isEmpty) {
+      _showAlert('Warning', 'Judul dan isi tidak boleh kosong');
+      return;
+    }
+
     final note = NotesModel(
-      title: _titleController.text,
-      content: _contentController.text,
+      title: title,
+      content: content,
       date: DateTime.now().toString().substring(0, 10),
-      userId: 1, 
+      userId: 1, // sementara hardcode
     );
 
     await Provider.of<NoteProvider>(context, listen: false)
@@ -27,6 +54,8 @@ final TextEditingController _titleController = TextEditingController();
 
     _titleController.clear();
     _contentController.clear();
+
+    _showAlert('Berhasil', 'Note berhasil ditambahkan');
   }
 
   @override
@@ -35,22 +64,25 @@ final TextEditingController _titleController = TextEditingController();
     _contentController.dispose();
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text('Add Note', style: TextStyle(color: Colors.white)),
+        title: const Center(
+          child: Text(
+            'Add Note',
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         backgroundColor: Colors.purple.shade100,
       ),
-
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             TextField(
+              controller: _titleController,
               decoration: InputDecoration(
                 labelText: 'Title',
                 border: OutlineInputBorder(
@@ -58,9 +90,9 @@ final TextEditingController _titleController = TextEditingController();
                 ),
               ),
             ),
-
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             TextField(
+              controller: _contentController,
               maxLines: 5,
               decoration: InputDecoration(
                 labelText: 'Content',
@@ -72,13 +104,12 @@ final TextEditingController _titleController = TextEditingController();
           ],
         ),
       ),
-
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 25),
         child: FloatingActionButton(
-          onPressed: (_saveNote),
+          onPressed: _saveNote,
           backgroundColor: Colors.purple.shade100,
-          child: Icon(Icons.save),
+          child: const Icon(Icons.save),
         ),
       ),
     );
