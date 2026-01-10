@@ -82,3 +82,4 @@ class NotesModel {
       userId.hashCode;
   }
 }
+  
