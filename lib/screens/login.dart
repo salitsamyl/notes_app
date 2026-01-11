@@ -88,7 +88,7 @@ class LoginPage extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:Color.fromARGB(255, 181, 122, 205),
+                            backgroundColor: Color.fromARGB(255, 181, 122, 205),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
@@ -102,7 +102,9 @@ class LoginPage extends StatelessWidget {
                       SizedBox(height: 24),
 
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [

@@ -102,7 +102,10 @@ class RegisterPage extends StatelessWidget {
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {}, // BELUM ADA LOGIKA
+                          onPressed: () {
+                            Navigator.pushReplacementNamed(context, '/dashboard');
+
+                          }, 
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 181, 122, 205),
                             shape: RoundedRectangleBorder(
