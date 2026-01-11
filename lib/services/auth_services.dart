@@ -3,10 +3,11 @@ import 'package:http/http.dart' as http;
 import 'package:notes_app/models/user_model.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://192.168.1.12:3000/users';
+  static const String baseUrl = 'http://10.204.33.208:4000/users';
 
   static Future<bool> register({
     required String username,
+    required String name,
     required String email,
     required String password,
   }) async {
@@ -16,6 +17,7 @@ class AuthService {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,
+          'name' : name,
           'email': email,
           'password': password,
         }),
