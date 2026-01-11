@@ -1,31 +1,36 @@
 import 'dart:convert';
 
 class User {
-  int id;
+  int?id;
+  String username;
+  String name;
   String email;
   String password;
-
-  User(
-    this.id,
-    this.email,
-    this.password,
-  );
-
+  User({
+    required this.username,
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+  
   User copyWith({
-    int? id,
+    String? username,
+    String? name,
     String? email,
     String? password,
   }) {
     return User(
-      id ?? this.id,
-      email ?? this.email,
-      password ?? this.password,
+      username: username ?? this.username,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
+      'username': username,
+      'name': name,
       'email': email,
       'password': password,
     };
@@ -33,9 +38,10 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      map['id'] as int,
-      map['email'] as String,
-      map['password'] as String,
+      username: map['username'] as String,
+      name: map['name'] as String,
+      email: map['email'] as String,
+      password: map['password'] as String,
     );
   }
 
@@ -44,18 +50,28 @@ class User {
   factory User.fromJson(String source) => User.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'User(id: $id, email: $email, password: $password)';
+  String toString() {
+    return 'User(username: $username, name: $name, email: $email, password: $password)';
+  }
 
   @override
   bool operator ==(covariant User other) {
     if (identical(this, other)) return true;
   
     return 
-      other.id == id &&
+      other.username == username &&
+      other.name == name &&
       other.email == email &&
       other.password == password;
   }
 
   @override
-  int get hashCode => id.hashCode ^ email.hashCode ^ password.hashCode;
+  int get hashCode {
+    return username.hashCode ^
+      name.hashCode ^
+      email.hashCode ^
+      password.hashCode;
+  }
 }
+
+  
