@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatelessWidget {
+import 'package:notes_app/provider/auth_provider.dart';
+
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  State<LoginPage> createState() {
+    return _LoginPageState();
+  }
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    
+    //AuthProvider
+    AuthProvider authProvider = Provider.of<AuthProvider>(context);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -47,14 +71,14 @@ class LoginPage extends StatelessWidget {
                         'Welcome to Notes App',
                         style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                       ),
-
                       Text(
                         'Manage your notes easily and securely',
                         style: TextStyle(fontSize: 14, color: Colors.grey[500]),
                       ),
-
                       SizedBox(height: 24),
+
                       TextField(
+                        controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email_outlined),
@@ -69,6 +93,7 @@ class LoginPage extends StatelessWidget {
                       SizedBox(height: 20),
 
                       TextField(
+                        controller: passwordController,
                         obscureText: true,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock_outline),
@@ -86,17 +111,45 @@ class LoginPage extends StatelessWidget {
                         width: double.infinity,
                         height: 56,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: authProvider.isLoading
+                              ? null
+                              : () async {
+                                  bool success = await authProvider.login(
+                                    emailController.text,
+                                    passwordController.text,
+                                  );
+
+                                  if (success) {
+                                    Navigator.pushReplacementNamed(
+                                      context,
+                                      '/dashboard',
+                                    );
+                                  } else {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          authProvider.errorMessage ??
+                                              'Login gagal',
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 181, 122, 205),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
-                          child: Text(
-                            'Sign In',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
+                          child: authProvider.isLoading
+                              ? CircularProgressIndicator(color: Colors.white)
+                              : Text(
+                                  'Sign In',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                  ), 
+                                ),
                         ),
                       ),
                       SizedBox(height: 24),
