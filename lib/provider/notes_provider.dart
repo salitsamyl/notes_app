@@ -30,12 +30,12 @@ class NoteProvider extends ChangeNotifier {
         _errorMessage = 'Gagal menambahkan note';
         return false;
       }
-    } catch (e) {
-      _errorMessage = 'Terjadi kesalahan koneksi';
-      return false;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+      } catch (e) {
+        _errorMessage = 'Terjadi kesalahan koneksi';
+        return false;
+      } finally {
+        _isLoading = false;
+        notifyListeners();
+      }
   }
-}
+} 

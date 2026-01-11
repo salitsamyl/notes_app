@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:notes_app/provider/notes_provider.dart';
 import 'package:notes_app/model/notes_model.dart';
+import 'package:notes_app/services/session_service.dart';
+
 
 class AddNotePage extends StatefulWidget {
   const AddNotePage({super.key});
@@ -42,11 +44,18 @@ class _AddNotePageState extends State<AddNotePage> {
       return;
     }
 
+    final userId = await SessionService.getUserId();
+
+    if (userId == null) {
+    _showAlert('Error', 'User belum login');
+    return;
+    }
+
     final note = NotesModel(
       title: title,
       content: content,
       date: DateTime.now().toString().substring(0, 10),
-      userId: 1, // sementara hardcode
+      userId: userId, 
     );
 
     await Provider.of<NoteProvider>(context, listen: false)
