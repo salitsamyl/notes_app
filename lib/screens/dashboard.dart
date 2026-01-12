@@ -31,7 +31,62 @@ class _DashboardState extends State<Dashboard> {
           child: Icon(Icons.add, color: Colors.white),
         ),
 
-        body: ListView(),
+        body: Padding(
+        padding: EdgeInsets.all(12),
+        child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 180,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 0.9,
+          ),
+          itemCount: provider.notes.length,
+          itemBuilder: (context, index) {
+            final note = provider.notes[index];
+
+            return GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, "/detail", arguments: note);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.purple.shade100.withOpacity(0.3),
+                      blurRadius: 6,
+                      offset: Offset(2, 3),
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        note.title,
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        note.content,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
