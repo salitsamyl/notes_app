@@ -11,6 +11,8 @@ class LoginPage extends StatefulWidget {
   }
 }
 
+bool isPasswordVisible = false;
+
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -92,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
 
                       TextField(
                         controller: passwordController,
-                        obscureText: true,
+                        obscureText: !isPasswordVisible,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock_outline),
                           labelText: 'Password',
@@ -101,9 +103,22 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           filled: true,
                           fillColor: Colors.grey[100],
+
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isPasswordVisible
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isPasswordVisible = !isPasswordVisible;
+                              });
+                            },
+                          ),
                         ),
                       ),
-                      SizedBox(height: 32),
+                      SizedBox(height: 20),
 
                       SizedBox(
                         width: double.infinity,

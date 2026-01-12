@@ -19,6 +19,9 @@ class _RegisterPageState extends State<RegisterPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
 
+  bool isPasswordHidden = true;
+  bool isConfirmPasswordHidden = true;
+
   @override
   void dispose() {
     usernameController.dispose();
@@ -114,10 +117,22 @@ class _RegisterPageState extends State<RegisterPage> {
 
                       TextField(
                         controller: passwordController,
-                        obscureText: true,
+                        obscureText: isPasswordHidden,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock_outline),
                           labelText: 'Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isPasswordHidden
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isPasswordHidden = !isPasswordHidden;
+                              });
+                            },
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -129,10 +144,23 @@ class _RegisterPageState extends State<RegisterPage> {
 
                       TextField(
                         controller: confirmPasswordController,
-                        obscureText: true,
+                        obscureText: isConfirmPasswordHidden,
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.lock_outline),
                           labelText: 'Confirm Password',
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isConfirmPasswordHidden
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                isConfirmPasswordHidden =
+                                    !isConfirmPasswordHidden;
+                              });
+                            },
+                          ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
@@ -162,6 +190,17 @@ class _RegisterPageState extends State<RegisterPage> {
                                       ),
                                     );
                                     return;
+                                  }
+
+                                  if (passwordController.text.length < 6) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Password minimal 6 karakter',
+                                        ),
+                                      ),
+                                    );
+                                    return; 
                                   }
 
                                   if (passwordController.text !=
