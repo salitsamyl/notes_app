@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'package:notes_app/provider/auth_provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,7 +24,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     //AuthProvider
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
@@ -114,6 +112,17 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: authProvider.isLoading
                               ? null
                               : () async {
+                                  if (emailController.text.isEmpty ||
+                                      passwordController.text.isEmpty) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                          'Email dan password tidak boleh kosong',
+                                        ),
+                                      ),
+                                    );
+                                    return;
+                                  }
                                   bool success = await authProvider.login(
                                     emailController.text,
                                     passwordController.text,
@@ -148,7 +157,7 @@ class _LoginPageState extends State<LoginPage> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,
-                                  ), 
+                                  ),
                                 ),
                         ),
                       ),

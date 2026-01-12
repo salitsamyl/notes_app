@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:notes_app/models/user_model.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://10.204.33.208:4000/users';
+  static const String baseUrl = 'http://localhost:3000/users';
 
+  // REGISTER
   static Future<bool> register({
     required String username,
     required String name,
@@ -12,12 +12,21 @@ class AuthService {
     required String password,
   }) async {
     try {
+
+      // Cek email
+      final check = await http.get(Uri.parse('$baseUrl?email=$email'));
+
+      final List data = jsonDecode(check.body);
+      if (data.isNotEmpty) {
+        return false; 
+      }
+
       final response = await http.post(
         Uri.parse(baseUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({
           'username': username,
-          'name' : name,
+          'name': name,
           'email': email,
           'password': password,
         }),
@@ -29,6 +38,7 @@ class AuthService {
     }
   }
 
+  // LOGIN
   static Future<bool> login({
     required String email,
     required String password,
@@ -45,7 +55,7 @@ class AuthService {
 
       return false;
     } catch (e) {
-      return false;
+      throw Exception('NETWORK_ERROR');
     }
   }
 }

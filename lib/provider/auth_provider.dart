@@ -7,25 +7,29 @@ class AuthProvider extends ChangeNotifier {
 
   // LOGIN
   Future<bool> login(String email, String password) async {
-    isLoading = true;
-    errorMessage = null;
-    notifyListeners();
+  isLoading = true;
+  errorMessage = null;
+  notifyListeners();
 
+  try {
     final success = await AuthService.login(
       email: email,
       password: password,
     );
 
-    await Future.delayed(const Duration(seconds: 2));
-    isLoading = false;
-
     if (!success) {
       errorMessage = 'Email atau password anda salah';
     }
 
+    return success; 
+  } catch (e) {
+    errorMessage = 'Tidak dapat terhubung ke server';
+    return false;
+  } finally {
+    isLoading = false;
     notifyListeners();
-    return success;
   }
+}
 
   // REGISTER
   Future<bool> register(
@@ -45,12 +49,10 @@ class AuthProvider extends ChangeNotifier {
       password: password,
     );
 
-    await Future.delayed(const Duration(seconds: 1));
-
     isLoading = false;
 
     if (!success) {
-      errorMessage = 'Registrasi gagal, coba lagi!';
+      errorMessage = 'Email yang Anda masukkan sudah terdaftar';
     }
 
     notifyListeners();

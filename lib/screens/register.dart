@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; 
+import 'package:provider/provider.dart';
 
-import 'package:notes_app/provider/auth_provider.dart'; 
+import 'package:notes_app/provider/auth_provider.dart';
 
-class RegisterPage extends StatefulWidget { 
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
 
   @override
@@ -13,13 +13,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-
   TextEditingController usernameController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
- 
+
   @override
   void dispose() {
     usernameController.dispose();
@@ -31,7 +30,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-
     AuthProvider authProvider = Provider.of<AuthProvider>(context);
 
     return Scaffold(
@@ -87,18 +85,18 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(height: 20),
 
                       TextField(
-                      controller: nameController,
-                      decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.badge_outlined),
-                        labelText: 'Full Name',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(16),
+                        controller: nameController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.badge_outlined),
+                          labelText: 'Full Name',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[100],
                         ),
-                        filled: true,
-                        fillColor: Colors.grey[100],
                       ),
-                    ),
-                    SizedBox(height: 20),
+                      SizedBox(height: 20),
 
                       TextField(
                         controller: emailController,
@@ -151,19 +149,32 @@ class _RegisterPageState extends State<RegisterPage> {
                           onPressed: authProvider.isLoading
                               ? null
                               : () async {
-                                  if (passwordController.text !=
-                                      confirmPasswordController.text) {
+                                  if (usernameController.text.isEmpty ||
+                                      nameController.text.isEmpty ||
+                                      emailController.text.isEmpty ||
+                                      passwordController.text.isEmpty ||
+                                      confirmPasswordController.text.isEmpty) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content:
-                                            Text('Password tidak sesuai'),
+                                        content: Text(
+                                          'Semua field wajib diisi',
+                                        ),
                                       ),
                                     );
                                     return;
                                   }
 
-                                  bool success =
-                                      await authProvider.register(
+                                  if (passwordController.text !=
+                                      confirmPasswordController.text) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Password tidak sesuai'),
+                                      ),
+                                    );
+                                    return;
+                                  }
+
+                                  bool success = await authProvider.register(
                                     usernameController.text,
                                     nameController.text,
                                     emailController.text,
@@ -174,7 +185,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
                                         content: Text(
-                                            'Registrasi berhasil, silakan login!'),
+                                          'Registrasi berhasil, silakan login!',
+                                        ),
                                       ),
                                     );
 
@@ -193,18 +205,15 @@ class _RegisterPageState extends State<RegisterPage> {
                                     );
                                   }
                                 },
-                  
+
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                Color.fromARGB(255, 181, 122, 205),
+                            backgroundColor: Color.fromARGB(255, 181, 122, 205),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                             ),
                           ),
                           child: authProvider.isLoading
-                              ? CircularProgressIndicator(
-                                  color: Colors.white,
-                                )
+                              ? CircularProgressIndicator(color: Colors.white)
                               : Text(
                                   'Sign Up',
                                   style: TextStyle(
