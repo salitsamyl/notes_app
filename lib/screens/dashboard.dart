@@ -20,6 +20,17 @@ class _DashboardState extends State<Dashboard> {
         child: Text("Dashboard",style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),),
         backgroundColor: Colors.purple.shade100,),
 
+        floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final result = await Navigator.pushNamed(context, "/create");
+            if (result == true) {
+              setState(() {});
+            }
+          },
+          backgroundColor: Colors.purple.shade100,
+          child: Icon(Icons.add, color: Colors.white),
+        ),
+
         body: ListView(),
     );
   }
