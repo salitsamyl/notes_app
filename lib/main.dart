@@ -6,7 +6,7 @@ import 'screen/addnote_page.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (_) => NoteProvider(),
+      create: (_) => NotesProvider(),
       child: const MyApp(),
     ),
   );
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const AddNotePage(), // langsung ke Page 3
+      home: const AddNotePage(), 
     );
   }
 }

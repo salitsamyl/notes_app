@@ -58,7 +58,7 @@ class _AddNotePageState extends State<AddNotePage> {
       userId: userId, 
     );
 
-    await Provider.of<NoteProvider>(context, listen: false)
+    await Provider.of<NotesProvider>(context, listen: false)
         .addNote(note);
 
     _titleController.clear();
