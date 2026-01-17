@@ -16,7 +16,7 @@ class _AddNotePageState extends State<AddNotePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _contentController = TextEditingController();
 
-  // ALERT DIALOG
+  // alert dialog
   void _showAlert(String title, String message) {
     showDialog(
       context: context,
@@ -88,19 +88,21 @@ class _AddNotePageState extends State<AddNotePage> {
           children: [
             TextField(
               controller: _titleController,
+              style: TextStyle(fontSize: 23, fontWeight: FontWeight.w300),
               decoration: InputDecoration(
-                labelText: 'Title',
+                labelText: 'Title', labelStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
               ),
             ),
-            const SizedBox(height: 15),
+            SizedBox(height: 15),
             TextField(
               controller: _contentController,
+              style: TextStyle(fontSize: 23, fontWeight: FontWeight.w300),
               maxLines: 5,
               decoration: InputDecoration(
-                labelText: 'Content',
+                labelText: 'Content', labelStyle: TextStyle(fontSize: 20),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -110,11 +112,11 @@ class _AddNotePageState extends State<AddNotePage> {
         ),
       ),
       floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 25),
+        padding: EdgeInsets.only(bottom: 25),
         child: FloatingActionButton(
           onPressed: _saveNote,
           backgroundColor: Colors.purple.shade100,
-          child: const Icon(Icons.save),
+          child: Icon(Icons.save),
         ),
       ),
     );
