@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:notes_app/model/user_model.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://localhost:3000/users';
+  static const String baseUrl = 'http://10.101.195.148:3000/users';
 
   // REGISTER
   static Future<bool> register({
@@ -12,13 +13,15 @@ class AuthService {
     required String password,
   }) async {
     try {
-
-      // Cek email
       final check = await http.get(Uri.parse('$baseUrl?email=$email'));
+
+      if (check.statusCode != 200) {
+        throw Exception('SERVER_ERROR');
+      }
 
       final List data = jsonDecode(check.body);
       if (data.isNotEmpty) {
-        return false; 
+        return false;
       }
 
       final response = await http.post(
@@ -34,27 +37,36 @@ class AuthService {
 
       return response.statusCode == 201;
     } catch (e) {
-      return false;
+      throw Exception('NETWORK_ERROR');
     }
   }
 
-  // LOGIN
-  static Future<bool> login({
+  // LOGIN 
+  static Future<UserModel?> login({
     required String email,
     required String password,
   }) async {
     try {
-      final response = await http.get(
-        Uri.parse('$baseUrl?email=$email&password=$password'),
+      final uri = Uri.parse(baseUrl).replace(
+        queryParameters: {
+          'email': email,
+          'password': password,
+        },
       );
+
+      final response = await http.get(uri);
 
       if (response.statusCode == 200) {
         final List data = jsonDecode(response.body);
-        return data.isNotEmpty;
+
+        if (data.isEmpty) return null;
+
+        return UserModel.fromMap(data.first);
       }
 
-      return false;
+      return null;
     } catch (e) {
+      print('LOGIN ERROR: $e');
       throw Exception('NETWORK_ERROR');
     }
   }
