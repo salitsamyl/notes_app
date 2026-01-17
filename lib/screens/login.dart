@@ -177,27 +177,32 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       SizedBox(height: 24),
-
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/register');
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "Don’t have an account? ",
-                              style: TextStyle(color: Color(0xFF9B59B6)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don’t have an account?",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
                             ),
-                            Text(
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                '/register',
+                              );
+                            },
+                            child: Text(
                               "Register here",
                               style: TextStyle(
-                                color: Color(0xFF9B59B6),
                                 fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 181, 122, 205),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
