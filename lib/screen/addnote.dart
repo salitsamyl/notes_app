@@ -33,12 +33,12 @@ class _AddNotePageState extends State<AddNotePage> {
     );
   }
 
-  // SIMPAN NOTE
+  // simpan note 
   void _saveNote() async {
     final title = _titleController.text.trim();
     final content = _contentController.text.trim();
 
-    // VALIDASI
+    // validasi 
     if (title.isEmpty || content.isEmpty) {
       _showAlert('Warning', 'Judul dan isi tidak boleh kosong');
       return;
@@ -46,16 +46,11 @@ class _AddNotePageState extends State<AddNotePage> {
 
     final userId = await SessionService.getUserId();
 
-    if (userId == null) {
-    _showAlert('Error', 'User belum login');
-    return;
-    }
-
     final note = NotesModel(
       title: title,
       content: content,
       date: DateTime.now().toString().substring(0, 10),
-      userId: userId, 
+      userId: userId!, 
     );
 
     await Provider.of<NotesProvider>(context, listen: false)
@@ -100,7 +95,7 @@ class _AddNotePageState extends State<AddNotePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 15),
             TextField(
               controller: _contentController,
               maxLines: 5,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/notes_provider.dart';
-import 'screen/addnote_page.dart';
+import 'screen/addnote.dart';
 
 void main() {
   runApp(
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const AddNotePage(), 
+      home: AddNotePage() 
     );
   }
 }
