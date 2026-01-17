@@ -24,6 +24,9 @@ class _DashboardState extends State<Dashboard> {
         onPressed: () async {
           final result = await Navigator.pushNamed(context, "/create");
             if (result == true) {
+              await Provider.of<NotesProvider>(context, listen: false).getNotesByUser();
+
+              // menambahkan alert ketika menambahkan notes
               showDialog(
               context: context,
               builder: (_) => AlertDialog(
@@ -40,6 +43,7 @@ class _DashboardState extends State<Dashboard> {
             setState(() {});
             }
           },
+
           backgroundColor: Colors.purple.shade100,
           child: Icon(Icons.add, color: Colors.white),
         ),
