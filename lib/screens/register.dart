@@ -200,7 +200,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ),
                                       ),
                                     );
-                                    return; 
+                                    return;
                                   }
 
                                   if (passwordController.text !=
@@ -244,7 +244,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                     );
                                   }
                                 },
-
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 181, 122, 205),
                             shape: RoundedRectangleBorder(
@@ -261,6 +260,31 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                 ),
                         ),
+                      ),
+                      SizedBox(height: 24),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Already have an account?",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(context, '/login');
+                            },
+                            child: Text(
+                              "Log in",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 181, 122, 205),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
