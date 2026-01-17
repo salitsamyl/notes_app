@@ -40,7 +40,7 @@ class _AddNotePageState extends State<AddNotePage> {
 
     // validasi 
     if (title.isEmpty || content.isEmpty) {
-      _showAlert('Warning', 'Judul dan isi tidak boleh kosong');
+      _showAlert('Warning', 'Title dan Content tidak boleh kosong');
       return;
     }
 
