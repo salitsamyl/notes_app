@@ -24,7 +24,20 @@ class _DashboardState extends State<Dashboard> {
         onPressed: () async {
           final result = await Navigator.pushNamed(context, "/create");
             if (result == true) {
-              setState(() {});
+              showDialog(
+              context: context,
+              builder: (_) => AlertDialog(
+                title: Text('Berhasil'),
+                content:Text('Catatan berhasil ditambahkan'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('OK'),
+                  ),
+                ],
+              ),
+            );
+            setState(() {});
             }
           },
           backgroundColor: Colors.purple.shade100,
