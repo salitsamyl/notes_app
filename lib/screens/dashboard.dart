@@ -23,7 +23,6 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<NotesProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -65,7 +64,29 @@ class _DashboardState extends State<Dashboard> {
           child: Icon(Icons.add, color: Colors.white),
         ),
 
-        body: Padding(
+        body: Consumer<NotesProvider>(
+        builder: (context, provider, _) {
+          if (provider.isLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          if (provider.errorMessage != null) {
+            return Center(child: Text(provider.errorMessage!));
+          }
+
+          if (provider.notes.isEmpty) {
+            return Center(
+              child: Text(
+                'Belum ada catatan',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Color.fromARGB(255, 245, 190, 255),
+                ),
+              ),
+            );
+          }
+
+        return Padding(
         padding: EdgeInsets.all(12),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
@@ -120,6 +141,8 @@ class _DashboardState extends State<Dashboard> {
             );
           },
         ),
+      );
+      },
       ),
     );
   }
