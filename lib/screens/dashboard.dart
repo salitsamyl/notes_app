@@ -29,7 +29,13 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         title: Center(
         child: Text("Dashboard",style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),),
-        backgroundColor: Colors.purple.shade100,),
+        backgroundColor: Colors.purple.shade100,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.logout, color: Colors.white,),
+            onPressed: (){}, )
+          ],
+        ),
 
         floatingActionButton: FloatingActionButton(
         onPressed: () async {
