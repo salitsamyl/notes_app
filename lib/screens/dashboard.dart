@@ -10,6 +10,17 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
+  @override
+  void initState() {
+    super.initState();
+
+  // mengambil data di dalam API
+  Future.microtask(() {
+      Provider.of<NotesProvider>(context, listen: false).getNotesByUser();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<NotesProvider>(context);
