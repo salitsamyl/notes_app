@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/screens/addnote.dart';
 import 'package:notes_app/screens/dashboard.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +30,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
-        '/dashboard': (context) => DashboardPage(),
+        '/dashboard': (context) => Dashboard(),
+        '/create' : (context) => AddNotePage()
       },
     );
   }
