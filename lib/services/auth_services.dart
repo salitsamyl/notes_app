@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:notes_app/model/user_model.dart';
 
 class AuthService {
-  static const String baseUrl = 'http://10.101.195.148:3000/users';
+  static const String baseUrl = 'http://192.168.1.16:3000/users';
 
   // REGISTER
   static Future<bool> register({
