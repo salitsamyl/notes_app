@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:notes_app/model/notes_model.dart';
 import 'package:notes_app/provider/notes_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -97,7 +98,7 @@ class _DashboardState extends State<Dashboard> {
           ),
           itemCount: provider.notes.length,
           itemBuilder: (context, index) {
-            final note = provider.notes[index];
+            final NotesModel note = provider.notes[index];
 
             return GestureDetector(
               onTap: () {
