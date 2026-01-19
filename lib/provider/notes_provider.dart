@@ -5,7 +5,7 @@ import 'package:notes_app/model/notes_model.dart';
 import 'package:notes_app/services/session_service.dart';
 
 class NotesProvider extends ChangeNotifier {
-  final String baseUrl = 'http://192.168.1.3:3000/notes'; 
+  final String baseUrl = 'http://192.168.1.3:4000/notes'; 
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;

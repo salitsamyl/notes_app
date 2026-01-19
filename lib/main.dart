@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'provider/notes_provider.dart';
-import 'screen/addnote.dart';
+import 'screens/addnote.dart';
+import 'services/session_service.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // sementara 
+ await SessionService.saveUserId(2);
+
+ 
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => NotesProvider(),
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => NotesProvider())],
       child: const MyApp(),
     ),
   );
@@ -18,12 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Notes App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AddNotePage() 
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/create',
+
+      routes: {'/create': (_) => const AddNotePage()},
     );
   }
 }
