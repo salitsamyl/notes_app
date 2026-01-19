@@ -1,7 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionService {
-  static const _keyUserId = 'UserId';
+  static const _keyUserId = 'userId';
 
   // simpan user id
   static Future<void> saveUserId(int userId) async {
