@@ -74,14 +74,14 @@ class _AddNotePageState extends State<AddNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Note',
-            style: TextStyle(color: Colors.white),
-          ),
-        ),
-        backgroundColor: Colors.purple.shade100,
+      title: Text('Add Note', style: TextStyle(color: Colors.white)),
+      centerTitle: true,
+      backgroundColor: Colors.purple.shade100,
+      iconTheme: const IconThemeData(
+        color: Colors.white,
       ),
+    ),
+    
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
