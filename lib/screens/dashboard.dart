@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app/model/notes_model.dart';
+import 'package:notes_app/provider/auth_provider.dart';
 import 'package:notes_app/provider/notes_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+
   @override
   void initState() {
     super.initState();
@@ -21,8 +23,44 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+  //logout
+  void _confirmLogout(BuildContext context) {
+    showDialog(
+      context: context, 
+      builder: (_) => AlertDialog(
+        title: Text('Logout'),
+        content: Text('Yakin ingin logout?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Batal'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple.shade100,
+            ),
+            onPressed: () async {
+              await Provider.of<AuthProvider>(
+                context,
+                listen: false,
+              ).logout();
+
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/login',
+                (route) => false,
+              );
+            },
+            child: Text('Logout'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Center(
@@ -35,8 +73,8 @@ class _DashboardState extends State<Dashboard> {
         actions: [
           IconButton(
             icon: Icon(Icons.logout, color: Colors.white),
-            onPressed: () {},
-          ),
+            onPressed: () => _confirmLogout(context),
+          )
         ],
       ),
 
@@ -66,7 +104,6 @@ class _DashboardState extends State<Dashboard> {
             setState(() {});
           }
         },
-
         backgroundColor: Colors.purple.shade100,
         child: Icon(Icons.add, color: Colors.white),
       ),
