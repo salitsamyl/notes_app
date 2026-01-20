@@ -28,15 +28,24 @@ class _DetailPageState extends State<DetailPage> {
         title: Text('Hapus Catatan'),
         content: Text('Yakin ingin menghapus catatan ini?'),
         actions: [
-          IconButton(
-            icon: Icon(Icons.delete),
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('Batal'),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.purple.shade100,
+            ),
             onPressed: () async {
               await Provider.of<NotesProvider>(
                 context,
                 listen: false,
               ).deleteNote(currentNote.id!);
-              Navigator.pop(context, true);
+
+              Navigator.pop(context); // tutup dialog
+              Navigator.pop(context, true); // kembali ke dashboard
             },
+            child: Text('Hapus'),
           ),
         ],
       ),
