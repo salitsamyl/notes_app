@@ -65,7 +65,7 @@ class _DashboardState extends State<Dashboard> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            "Dashboard",
+            "My Notes",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ),
